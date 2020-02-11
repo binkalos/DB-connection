@@ -1,0 +1,29 @@
+import java.sql.*;
+
+public class dbtest{
+	public static void main(String args[]){
+		
+		Connection conn;
+		PreparedStatement pstmt;
+		Statement stmt;
+		ResultSet rs;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbtest","root","1234");
+			
+			stmt = (Statement)conn.createStatement();
+			rs = stmt.executeQuery("select * from tb_user");
+			
+			while(rs.next()) { 
+				System.out.println(rs.getString("userId"));
+				System.out.println(rs.getString("userPw"));
+				System.out.println(rs.getString("userName"));
+			}//while
+		}catch(SQLException e){
+			
+		}
+		rs.close();
+		stmt.close();
+		conn.close();
+	}//main
+}//dbtest
